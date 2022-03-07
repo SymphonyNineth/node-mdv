@@ -1,7 +1,9 @@
 const path = require("path")
 const express = require("express")
 const { engine } = require("express-handlebars")
-const app = express();
+const app = express()
+
+const { getFortune } = require("./lib/fortune")
 
 const PORT = process.env.PORT ?? 3000;
 
@@ -26,8 +28,7 @@ app.get("/", (req, res) => {
 })
 
 app.get("/about", (req, res) => {
-    const fortune = fortunes[Math.floor(Math.random() * fortunes.length)]
-    res.render("about", { fortune })
+    res.render("about", { fortune: getFortune() })
 })
 
 app.use((req, res) => {
