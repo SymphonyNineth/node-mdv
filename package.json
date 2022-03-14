@@ -1,15 +1,32 @@
 {
-  "name": "meadowlark",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.3",
-    "express-handlebars": "^6.0.3"
-  }
+    "name": "meadowlark",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest",
+        "lint": "eslint meadowlark.js lib"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.3",
+        "express-handlebars": "^6.0.3"
+    },
+    "devDependencies": {
+        "eslint": "^8.10.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "jest": "^27.5.1",
+        "portfinder": "^1.0.28",
+        "prettier": "2.5.1",
+        "puppeteer": "^13.5.0"
+    },
+    "prettier": {
+        "trailingComma": "es5",
+        "tabWidth": 4,
+        "semi": false,
+        "singleQuote": false,
+        "printWidth": 120
+    }
 }

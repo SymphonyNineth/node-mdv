@@ -3,44 +3,33 @@ const express = require("express")
 const { engine } = require("express-handlebars")
 const app = express()
 
-const { getFortune } = require("./lib/fortune")
+const { home, about, notFound, serverError } = require("./lib/handlers")
 
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.PORT ?? 3000
 
-const fortunes = [
-    "Conquer your fears or they will conquer you.",
-    "Rivers need springs.",
-    "Do not fear what you don't know.",
-    "You will have a pleasant surprise.",
-    "Whenever possible, keep it simple.",
-    ]
-
-app.engine("handlebars", engine({
-    defaultLayout: "main",
-}))
+app.engine(
+    "handlebars",
+    engine({
+        defaultLayout: "main",
+    })
+)
 
 app.set("view engine", "handlebars")
 
 app.use(express.static(path.resolve(__dirname, "public")))
 
-app.get("/", (req, res) => {
-    res.render("home")
-})
+app.get("/", home)
 
-app.get("/about", (req, res) => {
-    res.render("about", { fortune: getFortune() })
-})
+app.get("/about", about)
 
-app.use((req, res) => {
-    res.status("404");
-    res.render("404")
-})
+app.use(notFound)
 
-app.use((err, req, res, next) => {
-    console.error(err.message)
-    res.status("500")
-    res.render("home")
-})
+app.use(serverError)
 
-
-app.listen(PORT, () => `Running on port ${PORT}`)
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Express started on http://localhost:${PORT}` + "; press Ctrl-C to terminate.")
+    })
+} else {
+    module.exports = app
+}
